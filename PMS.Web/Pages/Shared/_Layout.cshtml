@@ -1,0 +1,109 @@
+﻿@using PMS.Web.Security
+@{
+    var _cookies = CookieReader.GetCookieData(Context);
+    var currentUser = _cookies?.UserName;
+    var isLoggedIn = !string.IsNullOrWhiteSpace(currentUser);
+    var role = _cookies?.Role;
+    var isAdmin = role?.Equals("Admin", StringComparison.OrdinalIgnoreCase) == true;
+    var isEmployee = role?.Equals("Employee", StringComparison.OrdinalIgnoreCase) == true;
+    var primaryRole = isAdmin ? "Admin" : (isEmployee ? "Employee" : "User");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PMS.Web</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PMS.Web.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light app-navbar mb-4">
+            <div class="container">
+                <a class="navbar-brand fw-semibold" href="/home">PMS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-flex justify-content-between align-items-center">
+                    @if (isLoggedIn)
+                    {
+                        <ul class="navbar-nav me-auto">
+                            @if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/home">Dashboard</a>
+                                </li>
+                            }
+
+                            else if (isEmployee)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/home">My Tasks</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item d-flex align-items-center me-2">
+                                <span class="role-pill">@primaryRole</span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <span class="nav-link fw-semibold">@currentUser</span>
+                            </li>
+                            <li class="nav-item d-flex align-items-center">
+                                <form method="post" asp-page="/Auth/Logout">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <a class="nav-link" asp-area="" asp-page="/Auth/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-brand" asp-area="" asp-page="/Auth/Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        @if (isLoggedIn)
+        {
+            <div class="page-back-wrap">
+                <a href="#" class="page-back-link" onclick="history.back(); return false;" aria-label="Go back">
+                    <span class="page-back-arrow" aria-hidden="true">&larr;</span>
+                </a>
+            </div>
+        }
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - Project Management Mini-System By Muhammad Rizwan Alam
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

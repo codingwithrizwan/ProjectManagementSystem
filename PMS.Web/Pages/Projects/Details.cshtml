@@ -1,0 +1,111 @@
+@page "{id:long?}"
+@model PMS.Web.Pages.Projects.DetailsModel
+@{
+    ViewData["Title"] = "Project Detail";
+}
+
+<section class="mb-4">
+    <h1 class="hero-headline mb-2">@Model.ProjectName</h1>
+    <p class="subtle mb-1">Task breakdown with assignment and lifecycle timestamps.</p>
+    <p class="mb-0"><strong>Progress:</strong> @Model.Progress%</p>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.ApiError))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Model.ApiError
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.SuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    Model.SuccessMessage = null;
+}
+
+@if (Model.IsAdmin)
+{
+    <section class="panel p-3 p-md-4 mb-4">
+        <h2 class="h5 mb-3">Create and Assign Task</h2>
+        <form method="post" asp-page-handler="CreateTask" asp-route-id="@Model.ProjectId" class="row g-3" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger col-12"></div>
+            <div class="col-md-4">
+                <label asp-for="CreateTaskInput.Title" class="form-label">Task Title</label>
+                <input asp-for="CreateTaskInput.Title" class="form-control" />
+                <span asp-validation-for="CreateTaskInput.Title" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="CreateTaskInput.Description" class="form-label">Description</label>
+                <input asp-for="CreateTaskInput.Description" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="CreateTaskInput.AssignedEmployeeId" class="form-label">Assigned Employee</label>
+                <select asp-for="CreateTaskInput.AssignedEmployeeId" class="form-select" asp-items="Model.EmployeeSelectItems">
+                    <option value="">Select employee</option>
+                </select>
+                <span asp-validation-for="CreateTaskInput.AssignedEmployeeId" class="text-danger"></span>
+            </div>
+            <div class="col-12 d-grid d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-brand">Create Task</button>
+            </div>
+        </form>
+    </section>
+}
+
+<section class="panel p-3 p-md-4">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Assigned Employee</th>
+                    <th>Created</th>
+                    <th>Started</th>
+                    <th>Completed</th>
+                    @if (Model.IsEmployee)
+                    {
+                        <th>Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td>
+                            <span class="badge-status @task.StatusClass">@task.Status</span>
+                        </td>
+                        <td>@task.AssignedEmployee</td>
+                        <td>@task.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")</td>
+                        <td>@task.StartedAtDisplay</td>
+                        <td>@task.CompletedAtDisplay</td>
+                        @if (Model.IsEmployee)
+                        {
+                            <td>
+                                <form method="post" asp-page-handler="UpdateStatus" asp-route-id="@Model.ProjectId" class="d-flex gap-2">
+                                    <input type="hidden" name="UpdateStatusInput.TaskId" value="@task.Id" />
+                                    <select name="UpdateStatusInput.Status" class="form-select form-select-sm" style="min-width: 130px;">
+                                        <option value="0" selected="@(task.Status == "To Do" ? "selected" : null)">To Do</option>
+                                        <option value="1" selected="@(task.Status == "In Progress" ? "selected" : null)">In Progress</option>
+                                        <option value="2" selected="@(task.Status == "Done" ? "selected" : null)">Done</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

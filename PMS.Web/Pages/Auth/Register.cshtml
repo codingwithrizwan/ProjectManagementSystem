@@ -1,0 +1,54 @@
+@page
+@model PMS.Web.Pages.Auth.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="auth-wrap panel">
+    @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.SelectMany(v => v.Errors).Any(e => !string.IsNullOrEmpty(e.ErrorMessage)))
+    {
+        <div class="text-danger mb-3">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                if (!string.IsNullOrEmpty(error.ErrorMessage))
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            }
+        </div>
+    }
+    <h1 class="h3 fw-bold mb-2">Registration</h1>
+    <p class="subtle mb-4">Create your employee account to join a project workspace.</p>
+
+    <form method="post" novalidate>
+        <div class="mb-3">
+            <label asp-for="Input.UserName" class="form-label"></label>
+            <input asp-for="Input.UserName" class="form-control" />
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Email" class="form-label"></label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Password" class="form-label"></label>
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-brand">Create Employee Account</button>
+        </div>
+
+        <p class="small subtle mt-3 mb-0">
+            Already have an account? <a asp-page="/Auth/Login">Sign in</a>
+        </p>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

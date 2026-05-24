@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #f3f7f2;
+  --ink: #1b2520;
+  --muted: #5d6b64;
+  --card: #ffffff;
+  --brand: #146a4e;
+  --brand-2: #0f4d39;
+  --line: #d8e4dc;
+  --warn: #f5a524;
+  --ok: #1f9d55;
+}
+
+html {
+  font-size: 16px;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(20, 106, 78, 0.16) 0, rgba(20, 106, 78, 0) 28%),
+    radial-gradient(circle at 92% 0, rgba(245, 165, 36, 0.18) 0, rgba(245, 165, 36, 0) 22%),
+    var(--bg);
+}
+
+.app-navbar {
+  border-bottom: 1px solid var(--line);
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.navbar-brand {
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+.nav-link {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: var(--brand);
+}
+
+.role-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #eef6f1;
+  color: var(--brand-2);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.btn-brand {
+  background-color: var(--brand);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--brand);
+}
+
+.btn-brand:hover {
+  background-color: var(--brand-2);
+  border-color: var(--brand-2);
+  color: #fff;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: 0 8px 22px rgba(26, 36, 30, 0.06);
+}
+
+.hero-headline {
+  font-size: clamp(1.8rem, 1.5rem + 1vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.page-back-wrap {
+  margin-bottom: 0.85rem;
+}
+
+.page-back-link {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #eef6f1;
+  color: var(--brand-2);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.page-back-link:hover {
+  color: var(--brand);
+}
+
+.page-back-arrow {
+  line-height: 1;
+}
+
+.subtle {
+  color: var(--muted);
+}
+
+.stat-card {
+  padding: 1.2rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.project-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: #edf3ef;
+  overflow: hidden;
+}
+
+.project-progress > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand) 0%, #22b07f 100%);
+}
+
+.badge-status {
+  font-size: 0.78rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.badge-todo {
+  background: #eef2ef;
+  color: #44504a;
+}
+
+.badge-progress {
+  background: #fff3da;
+  color: #7a560f;
+}
+
+.badge-done {
+  background: #dff7ea;
+  color: #16653f;
+}
+
+.auth-wrap {
+  max-width: 520px;
+  margin: 2.2rem auto;
+  padding: 1.4rem;
+}
+
+.footer {
+  background: transparent;
+}
+
+.alert {
+  border-radius: 12px;
+}
+
+.alert-success {
+  background-color: #e6f5ee;
+  border-color: #b7e2ce;
+  color: #124d39;
+}
+
+.alert-success .btn-close {
+  filter: invert(28%) sepia(29%) saturate(1035%) hue-rotate(111deg) brightness(92%) contrast(92%);
+}
+
+.alert-success .btn-close:hover {
+  opacity: 0.85;
+}

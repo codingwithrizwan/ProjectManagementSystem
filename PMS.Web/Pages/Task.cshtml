@@ -1,0 +1,87 @@
+@page "/Task"
+@model PMS.Web.Pages.TaskModel
+@{
+    ViewData["Title"] = Model.IsSingleTaskView ? "Task" : "My Tasks";
+}
+
+<section class="mb-4">
+    <h1 class="hero-headline mb-2">@(Model.IsSingleTaskView ? "Task" : "My Tasks")</h1>
+    <p class="subtle mb-0">@(Model.IsSingleTaskView ? "View and update this task." : "View all tasks assigned to you and update their status.")</p>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.ApiError))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Model.ApiError
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.SuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<section class="panel p-3 p-md-4">
+    @if (Model.Tasks.Count == 0)
+    {
+        <p class="subtle mb-0">No tasks assigned yet.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Project</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Started</th>
+                        <th>Completed</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>@task.Title</td>
+                            <td>@task.ProjectName</td>
+                            <td>@task.StatusText</td>
+                            <td>@task.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")</td>
+                            <td>@task.StartedAtDisplay</td>
+                            <td>@task.CompletedAtDisplay</td>
+                            <td>
+                                @if (task.Status == 2)
+                                {
+                                    <span class="badge-status badge-done">Done</span>
+                                }
+                                else
+                                {
+                                    <form method="post" asp-page-handler="UpdateStatus" class="d-flex gap-2">
+                                        <input type="hidden" name="taskId" value="@task.Id" />
+                                        <input type="hidden" name="openedTaskId" value="@task.Id" />
+                                        <select name="status" class="form-select form-select-sm" style="min-width: 130px;">
+                                            <option value="0" selected="@(task.Status == 0 ? "selected" : null)">To Do</option>
+                                            <option value="1" selected="@(task.Status == 1 ? "selected" : null)">In Progress</option>
+                                            <option value="2">Done</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

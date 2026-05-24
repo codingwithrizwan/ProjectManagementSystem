@@ -1,0 +1,36 @@
+@page
+@model PMS.Web.Pages.Projects.CreateModel
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<section class="panel p-3 p-md-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h5 mb-0">Create New Project</h2>
+        <a asp-page="/Index" class="btn btn-sm btn-outline-secondary">Back to Projects</a>
+    </div>
+
+    <form method="post" class="row g-3" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger col-12"></div>
+
+        <div class="col-md-6">
+            <label asp-for="Input.Name" class="form-label">Project Name</label>
+            <input asp-for="Input.Name" class="form-control" />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Input.Description" class="form-label">Description</label>
+            <input asp-for="Input.Description" class="form-control" />
+            <span asp-validation-for="Input.Description" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-brand">Submit</button>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

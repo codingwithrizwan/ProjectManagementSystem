@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@using PMS.Web.Security
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@if (Model.IsLoggedIn)
+{
+    
+    @if (Model.IsAdmin)
+    {
+        <partial name="_AdminDashboardSection" model="Model" />
+        <partial name="_CreateProjectSection" model="Model" />
+    }
+    else
+    {
+
+        <partial name="_EmployeeDashboardSection" model="Model" />
+        <partial name="_CreateTaskSection" model="Model" />
+    }
+
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.ApiError))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Model.ApiError
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!Model.IsLoggedIn)
+{
+    <div class="text-center py-5">
+        <h2 class="h4 mb-3">Welcome to the Project Management System</h2>
+        <p class="subtle mb-4">Please log in to access your dashboard and manage your projects.</p>
+    </div>
+}
+
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
