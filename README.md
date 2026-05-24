@@ -255,7 +255,7 @@ RESTful API endpoints for managing projects, tasks, and task statuses. Designed 
 - **ConnectionStrings**: Set your SQL Server connection string here. Example:
   ```json
   "ConnectionStrings": {
-    "DefaultConnection": "Server=.;Database=PMS_Test;Trusted_Connection=True;TrustServerCertificate=True"
+    "DefaultConnection": "Server=.;Database=PMS_Rizwan;Trusted_Connection=True;TrustServerCertificate=True"
   }
   ```
 - **JwtSettings**: JWT authentication settings (secret key, issuer, audience, token expiry).
