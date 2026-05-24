@@ -1,4 +1,22 @@
 #
+
+## Important Note About Folder Structure
+
+After cloning this repository with `git clone`, all main folders (PMS.API, PMS.Web, PMS.Application, PMS.Domain, PMS.Infrastructure, etc.) will be directly inside the `ProjectManagementSystem` directory.
+
+You will see:
+
+```
+ProjectManagementSystem/
+  PMS.API/
+  PMS.Web/
+  PMS.Application/
+  PMS.Domain/
+  PMS.Infrastructure/
+  ...
+```
+
+So, All code will be inside `ProjectManagementSystem`.
 # Running the Web and API Projects
 #
 ## Run the Web Project
