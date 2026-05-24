@@ -142,7 +142,7 @@ Admins manage projects and tasks; Employees execute and update tasks. The system
 #
 # Environment Information
 #
-- **Database:** SQL Server 2019 Developer Edition (64-bit), version 16.0.1000.6
+- **Database:** Microsoft SQL Server 2022 | 16.0.1000.6
 - **API:** .NET 10 (LTS)
 - **Web:** Razor Pages
 
