@@ -230,15 +230,7 @@ RESTful API endpoints for managing projects, tasks, and task statuses. Designed 
 
 ---
 
-## Notes
-- All endpoints require JWT authentication.
-- Timestamps (`CreatedAt`, `StartedAt`, `CompletedAt`) are managed automatically by the backend.
-- Progress calculations are handled in the Domain layer.
-- CQRS: Commands (create/update) and Queries (get/list) are separated internally.
 
----
-
----
 
 ## Admin Seeding & Registration Note
 
