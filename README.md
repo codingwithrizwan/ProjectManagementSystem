@@ -20,7 +20,7 @@ So, All code will be inside `ProjectManagementSystem`.
 # Running the Web and API Projects
 #
 ## Run the Web Project
-- Open a terminal in the `src` directory.
+- Open a terminal in the `ProjectManagementSystem` directory.
 - Run:
   ```
   dotnet run --project PMS.Web
@@ -28,7 +28,7 @@ So, All code will be inside `ProjectManagementSystem`.
 - The web app will run at: **https://localhost:7200/**
 
 ## Run the API Project
-- Open a terminal in the `src` directory.
+- Open a terminal in the `ProjectManagementSystem` directory.
 - Run:
   ```
   dotnet run --project PMS.API
@@ -46,12 +46,12 @@ So, All code will be inside `ProjectManagementSystem`.
 #
 1. **Clone or Download the Repository**
 2. **Configure Database Connection**
-  - Open `src/PMS.API/appsettings.json`.
+  - Open `ProjectManagementSystem/PMS.API/appsettings.json`.
   - Set your SQL Server connection string under `ConnectionStrings:DefaultConnection` (e.g., `Server=.;Database=PMS_Rizwan;Trusted_Connection=True;TrustServerCertificate=True`).
-3. **Run Database Migrations (from the `src` folder)**
-   - Open a terminal and navigate to the `src` directory:
+3. **Run Database Migrations (from the `ProjectManagementSystem` folder)**
+   - Open a terminal and navigate to the `ProjectManagementSystem` directory:
      ```
-     cd src
+     cd ProjectManagementSystem
      ```
    - For a fresh start (after deleting migrations):
      ```
