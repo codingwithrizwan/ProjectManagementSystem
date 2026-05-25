@@ -118,12 +118,7 @@ namespace PMS.API.Controllers
         [HttpPut("update-task-status")]
         public async Task<IActionResult> UpdateTaskStatus([FromBody] UpdateTaskStatusDto dto)
         {
-            if (!User.TryGetCurrentUserId(out var userId))
-            {
-                return Unauthorized(ApiResponse<object>.Fail("Invalid user context"));
-            }
-
-            var result = await _mediator.Send(new UpdateTaskStatusCommand(dto, userId));
+            var result = await _mediator.Send(new UpdateTaskStatusCommand(dto));
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

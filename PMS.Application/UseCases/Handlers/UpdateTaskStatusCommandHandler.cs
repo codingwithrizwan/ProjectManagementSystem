@@ -26,21 +26,6 @@ namespace PMS.Application.UseCases.Handlers
             {
                 return ApiResponse<object>.Fail("Task update failed", ["Task not found"]);
             }
-
-            if (command.userId.HasValue)
-            {
-                var employee = await employeeRepository.GetByUserIdAsync(command.userId.Value, cancellationToken);
-                if (employee == null)
-                {
-                    return ApiResponse<object>.Fail("Task update failed", ["Employee not found for current user"]);
-                }
-
-                if (task.AssignedEmployeeId != employee.Id)
-                {
-                    return ApiResponse<object>.Fail("Task update failed", ["You can update only your assigned tasks"]);
-                }
-            }
-
             task.UpdateStatus(dto.Status);// domain business logic 
             await taskRepository.SaveChangesAsync(cancellationToken);
 
